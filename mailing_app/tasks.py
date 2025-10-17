@@ -5,6 +5,11 @@ from .services import send_mailing_messages
 
 @shared_task
 def send_scheduled_mailings():
+    """
+    Главная задача Celery.
+    Ищет активные рассылки, проверяет их расписание и запускает отправку через сервис.
+    Вызывается периодически через Celery Beat.
+    """
     now = timezone.now()
     active_mailings = Mailing.objects.filter(
         start_date__lte=now.date(),

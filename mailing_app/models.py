@@ -3,6 +3,7 @@ from django.conf import settings
 from datetime import time, date
 
 class Client(models.Model):
+    """Модель получателя рассылки (Клиент)."""
     email = models.EmailField(unique=True, verbose_name="Email")
     full_name = models.CharField(max_length=150, verbose_name="ФИО")
     comment = models.TextField(blank=True, null=True, verbose_name="Комментарий")
@@ -19,6 +20,7 @@ class Client(models.Model):
         ]
 
 class Message(models.Model):
+    """Модель содержимого письма (Сообщение)."""
     subject = models.CharField(max_length=200, verbose_name="Тема письма")
     body = models.TextField(verbose_name="Тело письма")
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -34,6 +36,7 @@ class Message(models.Model):
         ]
 
 class Mailing(models.Model):
+    """Модель рассылки с настройками планирования."""
     FREQUENCY_CHOICES = [
         ('daily', 'Ежедневно'),
         ('weekly', 'Еженедельно'),
@@ -66,6 +69,7 @@ class Mailing(models.Model):
         ]
 
 class MailingAttempt(models.Model):
+    """Модель попытки отправки рассылки (Лог)."""
     STATUS_CHOICES = [
         ('success', 'Успешно'),
         ('failed', 'Неуспешно'),

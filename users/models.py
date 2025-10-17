@@ -52,9 +52,10 @@ class User(AbstractUser):
         related_query_name='user',
     )
 
+    # Устанавливаем email в качестве основного поля для авторизации.
     USERNAME_FIELD = 'email'
 
-
+    # Поля, которые будут запрашиваться при создании суперпользователя.
     REQUIRED_FIELDS = []
 
     class Meta:

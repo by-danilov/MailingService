@@ -4,6 +4,15 @@ from .models import Mailing, MailingAttempt
 
 
 def send_mailing_messages(mailing_id):
+    """
+    Отправляет email-сообщения по указанной рассылке и записывает результат в лог (MailingAttempt).
+
+    Args:
+        mailing_id (int): ID объекта Mailing, который нужно отправить.
+
+    Returns:
+        bool: True, если отправка и логирование прошли успешно, иначе False.
+    """
     try:
         mailing = Mailing.objects.get(id=mailing_id)
         if mailing.status == 'created':
