@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}Логи рассылок{% endblock %}
+{% block content %}
+    <h1>Логи попыток рассылок</h1>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Дата и время</th>
+                    <th>Рассылка</th>
+                    <th>Статус</th>
+                    <th>Ответ сервера</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for attempt in attempts %}
+                <tr>
+                    <td>{{ attempt.timestamp }}</td>
+                    <td><a href="{% url 'mailing_app:mailing_detail' attempt.mailing.pk %}">{{ attempt.mailing.message.subject }}</a></td>
+                    <td><span class="badge bg-{% if attempt.status == 'success' %}success{% else %}danger{% endif %}">{{ attempt.get_status_display }}</span></td>
+                    <td>
+                        <textarea class="form-control" rows="2" readonly>{{ attempt.server_response|default:"—" }}</textarea>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="text-center">Попыток отправки не найдено.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

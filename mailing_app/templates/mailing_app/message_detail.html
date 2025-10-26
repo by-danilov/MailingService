@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}Детали сообщения{% endblock %}
+{% block content %}
+    <h1>Детали сообщения: {{ object.subject }}</h1>
+    <div class="card p-4">
+        <p><strong>Тема:</strong> {{ object.subject }}</p>
+        <p><strong>Тело:</strong></p>
+        <div class="border p-3 bg-light">{{ object.body|linebreaksbr }}</div>
+        <hr>
+        <a href="{% url 'mailing_app:message_update' object.pk %}" class="btn btn-warning me-2">Изменить</a>
+        <a href="{% url 'mailing_app:message_delete' object.pk %}" class="btn btn-danger me-2">Удалить</a>
+        <a href="{% url 'mailing_app:message_list' %}" class="btn btn-secondary">Назад к списку</a>
+    </div>
+{% endblock %}

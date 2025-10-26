@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}Главная | Сервис Рассылок{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1 class="mb-4">Добро пожаловать в Сервис Рассылок!</h1>
+    </div>
+</div>
+
+{% if user.is_authenticated %}
+<div class="row g-4">
+    <div class="col-md-4">
+        <div class="card text-white bg-primary mb-3">
+            <div class="card-header">Всего рассылок</div>
+            <div class="card-body">
+                <h5 class="card-title display-4">{{ total_mailings }}</h5>
+                <p class="card-text">Общее количество созданных рассылок.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-white bg-success mb-3">
+            <div class="card-header">Активные рассылки</div>
+            <div class="card-body">
+                <h5 class="card-title display-4">{{ active_mailings }}</h5>
+                <p class="card-text">Количество рассылок в статусе "Запущена".</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-white bg-info mb-3">
+            <div class="card-header">Уникальные клиенты</div>
+            <div class="card-body">
+                <h5 class="card-title display-4">{{ unique_clients }}</h5>
+                <p class="card-text">Количество уникальных получателей в вашей базе.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="alert alert-info text-center" role="alert">
+    Для начала работы с сервисом, пожалуйста, <a href="{% url 'account_login' %}" class="alert-link">войдите</a> или <a href="{% url 'account_signup' %}" class="alert-link">зарегистрируйтесь</a>.
+</div>
+{% endif %}
+{% endblock %}

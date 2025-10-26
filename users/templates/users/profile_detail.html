@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}Мой Профиль{% endblock %}
+{% block content %}
+    <h1>Профиль пользователя: {{ object.email }}</h1>
+    <div class="card p-4">
+        {% if object.avatar %}
+            <img src="{{ object.avatar.url }}" class="rounded-circle mb-3" alt="Аватар" style="width: 150px; height: 150px; object-fit: cover;">
+        {% else %}
+            <div class="mb-3 text-muted">Аватар отсутствует.</div>
+        {% endif %}
+
+        <p><strong>Email:</strong> {{ object.email }}</p>
+        <p><strong>Телефон:</strong> {{ object.phone|default:"—" }}</p>
+        <p><strong>Страна:</strong> {{ object.country|default:"—" }}</p>
+
+        <hr>
+        <a href="{% url 'users:profile_update' %}" class="btn btn-warning">Редактировать профиль</a>
+    </div>
+{% endblock %}
